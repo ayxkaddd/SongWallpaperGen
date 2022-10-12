@@ -5,7 +5,7 @@ import src.main.config as config
 class SetWallpaper:
 
     def __init__(self):
-        self.setwallpaper()
+        pass
 
     def setwallpaper(self):
         full_path = f"{config.full_path}/spotify_wallpaper/src/resources/temp/tempBG.bmp"
