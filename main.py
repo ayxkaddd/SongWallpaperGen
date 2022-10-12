@@ -46,8 +46,10 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
-    if config.set_back:
-        print("setting wallpaper back to default...")
-        wp = SetWallpaper()
-        wp.set_back()
+    try:
+        main()
+    except KeyboardInterrupt:
+        if config.set_back:
+            print("setting wallpaper back to default...")
+            wp = SetWallpaper()
+            wp.set_back()
