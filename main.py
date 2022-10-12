@@ -18,7 +18,7 @@ def setup():
         MakeImage(song)
         print("setting wallpaper...")
         wp = SetWallpaper()
-        wp.setwalppaper()
+        wp.setwallpaper()
 
 
 def listen():
