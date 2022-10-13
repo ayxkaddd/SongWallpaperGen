@@ -10,7 +10,9 @@ def setup():
     song = CurrentTrack()
     song = song.pretty_string()
     if song == None:
-        print("i hate this")
+        print("paused")
+    elif song == " - Advertisement":
+        print("ad")
     else:
         print("getting song cover image...")
         GetCover()
@@ -27,7 +29,7 @@ def listen():
     print(f"listening if {current_song} skipped...")
     skipped = True
     while skipped:
-        sleep(3)
+        sleep(0.5)
         track = song.pretty_string()
         if current_song == track:
             continue
@@ -41,13 +43,18 @@ def listen():
 
 
 def main():
-    setup()
-    listen()
+    try:
+        setup()
+        listen()
+    except ImportError as ie:
+        print("i have no idea why")
 
 
 if __name__ == "__main__":
     try:
         main()
+    except ImportError:
+        print("gay ass")
     except KeyboardInterrupt:
         if config.set_back:
             print("setting wallpaper back to default...")
