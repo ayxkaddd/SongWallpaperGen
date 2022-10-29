@@ -17,6 +17,8 @@ class CurrentTrack:
     def return_track(self):
         try:
             string = f"{spotify.artist()}%20-%20{spotify.song()}"
+            if "#" in string:
+                string = string.replace("#", "")
             return string
         except SpotifyNotRunning as not_running:
             print(f"[{not_running}]")
