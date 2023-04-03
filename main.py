@@ -1,62 +1,52 @@
-from src.main.track_listener import GetCover, CurrentTrack
+import config
+
 from src.main.makingimage import MakeImage
 from src.main.wallpaper import SetWallpaper
+from src.main.track_listener import GetCover, CurrentTrack
 
-import src.main.config as config
+from colorama import init, Fore, Style
 
-from time import sleep
+init(autoreset=True)
 
 def setup():
-    song = CurrentTrack()
-    song = song.pretty_string()
-    if song == None:
-        print("paused")
-    elif song == " - Advertisement":
-        print("ad")
-    else:
-        print("getting song cover image...")
-        GetCover()
-        print("\nmaking image...")
-        MakeImage(song)
-        print("setting wallpaper...")
-        wp = SetWallpaper()
-        wp.setwallpaper()
+    try:
+        song = CurrentTrack().pretty_string()
+        if song == "Unknown":
+            print(Fore.CYAN + "paused")
+        elif song == " - Advertisement":
+            print(Fore.YELLOW + Style.BRIGHT + "get premium LMAO !!! :rofl:")
+        else:
+            print(Fore.BLUE + Style.DIM + "getting song cover...")
+            GetCover()
+            print(Fore.BLUE + Style.DIM + "\nmaking image...")
+            MakeImage(song)
+            print(Fore.BLUE + Style.DIM + "setting wallpaper...")
+            wp = SetWallpaper()
+            wp.setwallpaper()
+            print(Fore.GREEN + Style.DIM + "everything is set")
+            print(Fore.CYAN + Style.BRIGHT + f"Current Song: {song}")
+    except Exception as e:
+        print(Fore.RED + Style.BRIGHT + f"Error setting up song: {e}")
 
 
 def listen():
-    song = CurrentTrack()
-    current_song = song.pretty_string()
-    print(f"listening if {current_song} skipped...")
-    skipped = True
-    while skipped:
-        sleep(0.5)
-        track = song.pretty_string()
-        if current_song == track:
-            continue
-        elif current_song != track:
-            print("song is skipped.\nseting up new song")
-            current_song = track
-            print(f"listening if {current_song} skipped...")
-            setup()
-        else:
-            print(f"{current_song=} | {track=}")
-
-
-def main():
-    try:
-        setup()
-        listen()
-    except ImportError as ie:
-        print("i have no idea why")
+    current_song = ""
+    while True:
+        try:
+            song = CurrentTrack().pretty_string()
+            if song != current_song:
+                current_song = song
+                print(Fore.BLUE + Style.DIM + f"listening if {current_song} skipped")
+                setup()
+        except Exception as e:
+            print(Fore.RED + Style.BRIGHT + f"Error listening to song: {e}")
 
 
 if __name__ == "__main__":
+    wp = SetWallpaper()
     try:
-        main()
-    except ImportError:
-        print("gay ass")
+        listen()
     except KeyboardInterrupt:
         if config.set_back:
-            print("setting wallpaper back to default...")
-            wp = SetWallpaper()
+            print(Fore.YELLOW + Style.BRIGHT +  "setting wallpaper back to default...")
             wp.set_back()
