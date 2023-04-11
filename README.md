@@ -4,4 +4,4 @@ you go to https://developer.spotify.com/dashboard then you create your app, get 
 
 thats it. enjoy
 
-<p align="center"><img src="https://raw.githubusercontent.com/ayxkaddd/SongWallpaperGen/main/icon.ico"></p>
+<p align="center"><img src="https://raw.githubusercontent.com/ayxkaddd/SongWallpaperGen/main/icon.ico" width="150" height="150"></p>
